@@ -11,21 +11,21 @@ Whether processing confidential invoices, research papers, or personal logs, Aeg
 Aegis SmartDrive combines a Node.js/Express backend, a SQLite metadata database, a native high-speed vector index, and a modern React + Tailwind CSS v4 dashboard.
 
 ```mermaid
-graph TD
+flowchart TD
     %% Upload / Staging Workflow
-    subgraph Staging Area (Isolated)
+    subgraph "Staging Area (Isolated)"
         U[User Uploads File] -->|Disk Write| S[./data/staging/]
         S -->|Extract Text| P[Dual-Engine Parser]
         P -->|Generate Embeddings| E[Ollama nomic-embed-text]
     end
 
     %% Similarity & Duplicate Check
-    E -->|Centroid Vector Analysis| D{Similarity >= 90%?}
+    E -->|Centroid Vector Analysis| D["Similarity >= 90%?"]
     D -->|Yes| W[Flag as Semantic Duplicate]
     D -->|No| A[Standard Staging List]
 
     %% User Decision Actions
-    W -->|User Actions| UA{Resolution Choice}
+    W -->|User Actions| UA[Resolution Choice]
     UA -->|Keep Both| V[Approve under Version Suffix]
     UA -->|Overwrite Original| O[Sweep & Replace Transaction]
     UA -->|Discard| C[Purge Staged Files]
@@ -40,10 +40,10 @@ graph TD
     AD -->|Persist Coordinates| VS[(vector-store.json)]
     
     %% RAG & Query Pipeline
-    subgraph RAG & Semantic Search
+    subgraph "RAG & Semantic Search"
         Q[User Semantic Query] -->|Embed Query| EQ[Ollama nomic-embed-text]
         EQ -->|Cosine Similarity Search| VS
-        VS -->|Extract Segments| HB[Hybrid Search: Keyword Boost +15%]
+        VS -->|Extract Segments| HB["Hybrid Search: Keyword Boost +15%"]
         HB -->|Top 5 Context Chunks| RAG[RAG Prompt Solver]
         RAG -->|Local LLM Inference| LLM[Ollama llama3]
         LLM -->|Synthesized Answer| UI[Interactive React HUD]
