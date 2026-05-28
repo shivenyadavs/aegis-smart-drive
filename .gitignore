@@ -1,0 +1,32 @@
+# Heavy Dependency folders (should always be installed fresh)
+node_modules/
+jspm_packages/
+
+# 🔒 CRITICAL: Local database and private disk file vaults (Keeps your files secure & offline!)
+backend/data/
+*.db
+*.db-journal
+
+# 🔒 Local environment keys and configuration credentials
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Compiled production build directories
+dist/
+build/
+out/
+.next/
+
+# Operating system metadata files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Heavy local log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
